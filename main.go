@@ -28,7 +28,7 @@ func main() {
 		}
 	}
 	for i := 0; i < 99999; i++ {
-		x := rand.Intn(6) + 1
+		x := rand.Intn(16) + 1
 		//fmt.Println(x) //返回[0,100)的随机整数
 		if _, ok := tmpBlueMap[x]; ok {
 			tmpBlueMap[x] = tmpBlueMap[x] + 1
