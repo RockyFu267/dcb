@@ -12,11 +12,18 @@ type ListMap struct {
 	Count int
 }
 
+type ListBlueMap struct {
+	Data  int
+	Count int
+}
+
 func main() {
 	var sortListMap []ListMap
+	var sortBlueListMap []ListBlueMap
+	tmpBlueMap := make(map[int]int)
 	map6 := make(map[[6]int]int)
 	rand.Seed(time.Now().UnixNano())
-	for n := 0; n < 999999; n++ {
+	for n := 0; n < 99999; n++ {
 		fmt.Println(n)
 		var list6 RedList6
 		for i := 0; i < 6; i++ {
@@ -28,6 +35,13 @@ func main() {
 				}
 			}
 			list6[i] = x
+		}
+		y := rand.Intn(16) + 1
+		//fmt.Println(x) //返回[0,100)的随机整数
+		if _, ok := tmpBlueMap[y]; ok {
+			tmpBlueMap[y] = tmpBlueMap[y] + 1
+		} else {
+			tmpBlueMap[y] = 1
 		}
 		//排序
 		for i := 0; i < len(list6); i++ {
@@ -46,24 +60,52 @@ func main() {
 		}
 	}
 	for k, v := range map6 {
-		if v >= 9 {
+		if v >= 3 {
 			var tmpListMap ListMap
 			tmpListMap.Data = k
 			tmpListMap.Count = v
 			sortListMap = append(sortListMap, tmpListMap)
 		}
 	}
+	for k, v := range tmpBlueMap {
+		if v >= 555 {
+			var tmpListMap ListBlueMap
+			tmpListMap.Data = k
+			tmpListMap.Count = v
+			sortBlueListMap = append(sortBlueListMap, tmpListMap)
+		}
+	}
+
 	for i := 0; i < len(sortListMap); i++ {
 		for j := i + 1; j < len(sortListMap); j++ {
-			if sortListMap[i].Count > sortListMap[j].Count {
+			if sortListMap[i].Count < sortListMap[j].Count {
 				tmp := sortListMap[i]
 				sortListMap[i] = sortListMap[j]
 				sortListMap[j] = tmp
 			}
 		}
 	}
+	for i := 0; i < len(sortBlueListMap); i++ {
+		for j := i + 1; j < len(sortBlueListMap); j++ {
+			if sortBlueListMap[i].Count < sortBlueListMap[j].Count {
+				tmp := sortBlueListMap[i]
+				sortBlueListMap[i] = sortBlueListMap[j]
+				sortBlueListMap[j] = tmp
+			}
+		}
+	}
+
 	for k := range sortListMap {
+		if k >= 3 {
+			break
+		}
 		fmt.Println(sortListMap[k])
+	}
+	for k := range sortBlueListMap {
+		if k >= 3 {
+			break
+		}
+		fmt.Println(sortBlueListMap[k])
 	}
 
 }
